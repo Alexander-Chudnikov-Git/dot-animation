@@ -8,7 +8,7 @@ Default settings
 ```
 #define DEFAULT_WINDOW_HEIGHT	480
 #define DEFAULT_WINDOW_WIGHT	640
-#define RED_COLOUR 				150, 0, 24
+#define RED_COLOUR  150, 0, 24
 #define BLACK_COLOUR 			0, 0, 0, 255
 #define MAX_DOT_AMOUNT 			80
 #define MAX_DOT_SPEED 			0.1f
