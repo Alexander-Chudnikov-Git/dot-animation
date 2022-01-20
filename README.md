@@ -5,7 +5,7 @@ Animation can be configured inside header.
 
 
 Default settings
-'''
+```
 #define DEFAULT_WINDOW_HEIGHT	480
 #define DEFAULT_WINDOW_WIGHT	640
 #define RED_COLOUR 				    150, 0, 24
@@ -22,4 +22,4 @@ Default settings
 #define UPADTE_DELAY 			    1
 #define PI 						        3.14f
 #define MAX_TITLEBAR_HEIGHT 	DEFAULT_WINDOW_WIGHT / 20
-'''
+```
