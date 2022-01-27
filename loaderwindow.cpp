@@ -2,8 +2,6 @@
 #include "rwfont.hpp"
 #include "rwimage.hpp"
 
-#define NIGGER 10
-
 LoaderWindow::LoaderWindow()
 {
 	is_initialized = init();
@@ -33,10 +31,10 @@ bool LoaderWindow::init()
 	}
 
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-    SDL_GL_SetAttribute(SDL_GL_SHARE_WITH_CURRENT_CONTEXT, 1);
+    	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+    	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+   	SDL_GL_SetAttribute(SDL_GL_SHARE_WITH_CURRENT_CONTEXT, 1);
 
 	main_window = SDL_CreateWindow("Loader", 100, 100, DEFAULT_WINDOW_WIGHT, DEFAULT_WINDOW_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_BORDERLESS | SDL_WINDOW_OPENGL);
 	if (!main_window) 
@@ -46,13 +44,13 @@ bool LoaderWindow::init()
 	}
 
 	main_gl_context = SDL_GL_CreateContext(main_window);
-    if (main_gl_context == NULL)
-    {
-        SDL_Log("ERROR: Unable to creare OpenGL context: %s\n", SDL_GetError());
-        return false;
-    }
+    	if (main_gl_context == NULL)
+	{
+        	SDL_Log("ERROR: Unable to creare OpenGL context: %s\n", SDL_GetError());
+        	return false;
+    	}
 
-    ptr_str_rwops = SDL_RWFromMem(rw_font_mem, rw_font_mem_len);
+    	ptr_str_rwops = SDL_RWFromMem(rw_font_mem, rw_font_mem_len);
 	rwfont = TTF_OpenFontRW(ptr_str_rwops, 1, 16);
 
 	if (!rwfont) 
@@ -70,11 +68,11 @@ bool LoaderWindow::init()
 	//	  return false;
 	//}
 
-    if (SDL_GL_SetSwapInterval(-1) < 0)
-    {
-        SDL_Log("WARNING: Unable to set VSync: %s\n", SDL_GetError());
-    }
-    return true;
+    	if (SDL_GL_SetSwapInterval(-1) < 0)
+    	{
+        	SDL_Log("WARNING: Unable to set VSync: %s\n", SDL_GetError());
+    	}
+    	return true;
 }
 
 bool LoaderWindow::initGL()
@@ -89,47 +87,46 @@ bool LoaderWindow::initGL()
 	glViewport(0.0f, 0.0f, window_width, window_height);
 
 	glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
+    	glLoadIdentity();
 
-    glOrtho(0.0f, window_width, 0.0f, window_height, 0.0f, 1.0f);
+    	glOrtho(0.0f, window_width, 0.0f, window_height, 0.0f, 1.0f);
 
-    error = glGetError();
-    if (error != GL_NO_ERROR)
-    {
-        //SDL_Log("ERROR: Unable to initialize OpenGL: %s\n", gluErrorString(error));
-        return false;
-    }
+    	error = glGetError();
+    	if (error != GL_NO_ERROR)
+    	{
+        	//SDL_Log("ERROR: Unable to initialize OpenGL: %s\n", gluErrorString(error));
+        	return false;
+    	}
 
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 
-    error = glGetError();
-    if (error != GL_NO_ERROR)
-    {
-        //SDL_Log("ERROR: Unable to initialize OpenGL: %s\n", gluErrorString(error));
-        return false;
-    }
+    	error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		//SDL_Log("ERROR: Unable to initialize OpenGL: %s\n", gluErrorString(error));
+		return false;
+	}
 
-    glEnable(GL_ALPHA_TEST);
-    glEnable(GL_TEXTURE_2D);
-    glEnable(GL_BLEND);
+	glEnable(GL_ALPHA_TEST);
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
 	glBlendFunc(GL_ONE_MINUS_DST_ALPHA, GL_DST_ALPHA);
 
-    error = glGetError();
-    if (error != GL_NO_ERROR)
-    {
-        //SDL_Log("ERROR: Unable to initialize OpenGL: %s\n", gluErrorString(error));
-        return false;
-    }
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-    return true;
+	error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		//SDL_Log("ERROR: Unable to initialize OpenGL: %s\n", gluErrorString(error));
+		return false;
+	}
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	return true;
 }
-
 
 double LoaderWindow::fRand(double fMin, double fMax)
 {
-    double f = (double)std::rand() / RAND_MAX;
-    return fMin + f * (fMax - fMin);
+	double f = (double)std::rand() / RAND_MAX;
+	return fMin + f * (fMax - fMin);
 }
 
 void LoaderWindow::createDots()
@@ -149,37 +146,37 @@ void LoaderWindow::createDots()
 
 double LoaderWindow::calculateDistance(dot point_1, dot point_2)
 {
-    return std::sqrt(std::pow(point_2.pos_x - point_1.pos_x, 2) + std::pow(point_2.pos_y - point_1.pos_y, 2));
+	return std::sqrt(std::pow(point_2.pos_x - point_1.pos_x, 2) + std::pow(point_2.pos_y - point_1.pos_y, 2));
 }
 
 void LoaderWindow::drawString(std::string message, SDL_Color color, int x, int y, TTF_Font* font) 
 {
-  	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-  	GLuint texture;
-  	glGenTextures(1, &texture);
-  	glBindTexture(GL_TEXTURE_2D, texture);
+	GLuint texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
 
-  	SDL_Surface* sFont = TTF_RenderText_Blended(font, message.c_str(), color);
+	SDL_Surface* sFont = TTF_RenderText_Blended(font, message.c_str(), color);
 
-  	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-  	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, sFont->w, sFont->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, sFont->pixels);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, sFont->w, sFont->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, sFont->pixels);
 
-  	glBegin(GL_QUADS);
-  	{
-    	glTexCoord2f(0,1); glVertex2f(x, y);
-    	glTexCoord2f(1,1); glVertex2f(x + sFont->w, y);
-    	glTexCoord2f(1,0); glVertex2f(x + sFont->w, y + sFont->h);
-    	glTexCoord2f(0,0); glVertex2f(x, y + sFont->h);
-  	}
-  	glEnd();
+	glBegin(GL_QUADS);
+	{
+		glTexCoord2f(0,1); glVertex2f(x, y);
+		glTexCoord2f(1,1); glVertex2f(x + sFont->w, y);
+		glTexCoord2f(1,0); glVertex2f(x + sFont->w, y + sFont->h);
+		glTexCoord2f(0,0); glVertex2f(x, y + sFont->h);
+	}
+	glEnd();
 
-  	glMatrixMode(GL_PROJECTION);
-  	glPopMatrix();
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
 
-  	glDeleteTextures(1, &texture);
-  	SDL_FreeSurface(sFont);
+	glDeleteTextures(1, &texture);
+	SDL_FreeSurface(sFont);
 }
 
 void LoaderWindow::drawIMG(int x, int y, SDL_Surface *image) 
@@ -211,38 +208,38 @@ void LoaderWindow::drawIMG(int x, int y, SDL_Surface *image)
   	glDeleteTextures(1, &texture);
 }
 
-std::vector<dot> LoaderWindow::findNearestDot(std::vector<dot> points, size_t point_index, size_t K)
+std::vector<dot> LoaderWindow::findNearestDot(std::vector<dot> points, size_t point_index, size_t k)
 {
-    std::vector<dot> temp;
-    std::vector<double> buffer;
+	std::vector<dot> temp;
+	std::vector<double> buffer;
     
-    for (size_t index = 0; index < MAX_DOT_AMOUNT; ++index)
-    {
-        buffer.push_back(calculateDistance(points[point_index], points[index]));
-    }
+	for (size_t index = 0; index < MAX_DOT_AMOUNT; ++index)
+	{
+		buffer.push_back(calculateDistance(points[point_index], points[index]));
+	}
 
-    for (size_t index = 0; index < K; ++index)
-    {
-        if (index != point_index)
-        {
-            auto buffer_min_element = std::min_element(buffer.begin(), buffer.end());
-            temp.push_back(points[std::distance(buffer.begin(), buffer_min_element)]);
-            if (*buffer_min_element < MAX_DOT_FADE)
-            {
-                temp.back().transp = (1 - *buffer_min_element / (1 / 1) / MAX_DOT_FADE) * 255;
-            }
-            else 
-            {
-                temp.back().transp = 0;
-            }
-            buffer[std::distance(buffer.begin(), std::min_element(buffer.begin(), buffer.end()))] = 9999999;
-        }
-        else 
-        {
-            K++;
-        }
-    }
-    return temp;
+	for (size_t index = 0; index < k; ++index)
+	{
+		if (index != point_index)
+		{
+			auto buffer_min_element = std::min_element(buffer.begin(), buffer.end());
+			temp.push_back(points[std::distance(buffer.begin(), buffer_min_element)]);
+			if (*buffer_min_element < MAX_DOT_FADE)
+			{
+				temp.back().transp = (1 - *buffer_min_element / (1 / 1) / MAX_DOT_FADE) * 255;
+			}
+			else 
+			{
+				temp.back().transp = 0;
+			}
+			buffer[std::distance(buffer.begin(), std::min_element(buffer.begin(), buffer.end()))] = 9999999;
+		}
+		else 
+		{
+			k++;
+		}
+	}
+	return temp;
 }
 
 void LoaderWindow::drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius)
@@ -269,9 +266,9 @@ void LoaderWindow::render()
 	SDL_GetWindowSize(main_window, &window_width, &window_height);
 
 	deltaclock = SDL_GetTicks() - startclock;
-    startclock = SDL_GetTicks();
+	startclock = SDL_GetTicks();
 
-    if (deltaclock != 0)  
+	if (deltaclock != 0)  
 	{
 		currentFPS = 1000 / deltaclock; 
 	}
